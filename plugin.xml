@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+	<extension point="net.fornwall.eclipsecoder.languagesupport">
+    	<languagesupport
+    		language="Java"
+    		class="net.fornwall.eclipsecoder.javasupport.JavaLanguageSupport"/>
+	</extension>
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+        	class="net.fornwall.eclipsecoder.javasupport.JavaPreferencesPage"
+            id="net.fornwall.eclipsecoder.javasupport.preferences.JavaPreferencesPage"
+            category="net.fornwall.eclipsecoder.preferences.PreferencesPage"
+            name="Java"/>
+	</extension>
+
+    <extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="net.fornwall.eclipsecoder.javasupport.PreferenceInitializer"/>
+	</extension>
+
+</plugin>
