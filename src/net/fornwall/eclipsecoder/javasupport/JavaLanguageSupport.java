@@ -50,13 +50,12 @@ public class JavaLanguageSupport extends LanguageSupport {
 
 		IClasspathEntry sourceEntry = JavaCore.newSourceEntry(javaProject.getPath());
 		IClasspathEntry conEntry = JavaCore.newContainerEntry(new Path(JavaRuntime.JRE_CONTAINER
-				+ "/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"));
+				+ "/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"));
 		IClasspathEntry junitEntry = JavaCore.newContainerEntry(new Path("org.eclipse.jdt.junit.JUNIT_CONTAINER/4"));
 		javaProject.setRawClasspath(new IClasspathEntry[] { sourceEntry, conEntry, junitEntry }, null);
 
-		// current topcoder setup uses java 1.5:
-		// http://www.topcoder.com/tc?module=Static&d1=help&d2=generalFaq#java3
-		final String JAVA_VERSION = JavaCore.VERSION_1_5;
+		// current topcoder setup uses java 1.7:
+		final String JAVA_VERSION = JavaCore.VERSION_1_7;
 		javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, JAVA_VERSION);
 		javaProject.setOption(JavaCore.COMPILER_SOURCE, JAVA_VERSION);
 		javaProject.setOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JAVA_VERSION);

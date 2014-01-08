@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EclipseCoder Java Support
 Bundle-SymbolicName: net.fornwall.eclipsecoder.javasupport; singleton:=true
-Bundle-Version: 0.2.7
+Bundle-Version: 0.2.8
 Bundle-ClassPath: .
 Bundle-Vendor: Fredrik Fornwall
 Export-Package: net.fornwall.eclipsecoder.javasupport
