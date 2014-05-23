@@ -37,10 +37,12 @@ public class JavaPreferencesPage implements IWorkbenchPreferencePage {
 
 	private Button generateJUnitTimeoutEditor;
 
+	@Override
 	public Point computeSize() {
 		return composite.computeSize(SWT.DEFAULT, SWT.DEFAULT);
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
@@ -63,55 +65,68 @@ public class JavaPreferencesPage implements IWorkbenchPreferencePage {
 		codeTemplateEditor.setLayoutData(new GridData(GridData.FILL_BOTH));
 	}
 
+	@Override
 	public void dispose() {
 		composite.dispose();
 	}
 
+	@Override
 	public Control getControl() {
 		return composite; // codeTemplateEditor;
 	}
 
+	@Override
 	public String getDescription() {
 		return "EclipseCoder java support preferences";
 	}
 
+	@Override
 	public String getErrorMessage() {
 		// null to indicate no error message
 		return null;
 	}
 
+	@Override
 	public Image getImage() {
 		return null;
 	}
 
+	@Override
 	public String getMessage() {
 		return null;
 	}
 
+	@Override
 	public String getTitle() {
 		return "EclipseCoder Java Preferences";
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 		// from IWorkbenchPreferencePage interface
 	}
 
+	@Override
 	public boolean isValid() {
 		return true;
 	}
 
+	@Override
 	public boolean okToLeave() {
 		return true;
 	}
 
+	@Override
 	public boolean performCancel() {
 		return true;
 	}
 
+	@Override
 	public void performHelp() {
 		// do nothing
 	}
 
+	@Override
 	public boolean performOk() {
 		IPreferenceStore preferenceStore = JavaSupportPlugin.getInstance()
 				.getPreferenceStore();
@@ -123,26 +138,32 @@ public class JavaPreferencesPage implements IWorkbenchPreferencePage {
 		return true;
 	}
 
+	@Override
 	public void setContainer(IPreferencePageContainer preferencePageContainer) {
 		// do nothing
 	}
 
+	@Override
 	public void setDescription(String description) {
 		// do nothing
 	}
 
+	@Override
 	public void setImageDescriptor(ImageDescriptor image) {
 		// do nothing
 	}
 
+	@Override
 	public void setSize(Point size) {
 		composite.setSize(size);
 	}
 
+	@Override
 	public void setTitle(String title) {
 		// do nothing
 	}
 
+	@Override
 	public void setVisible(boolean visible) {
 		composite.setVisible(visible);
 	}

@@ -3,6 +3,7 @@ package net.fornwall.eclipsecoder.javasupport;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class JavaSupportPlugin extends AbstractUIPlugin {
+
 	public static final String CODE_TEMPLATE_PREFERENCE = "codeTemplatePreference";
 
 	public static final String GENERATE_JUNIT_TIMEOUT_PREFERENCE = "generateJUnitTimeoutPreference";
@@ -14,7 +15,6 @@ public class JavaSupportPlugin extends AbstractUIPlugin {
 	}
 
 	public JavaSupportPlugin() {
-		super();
 		JavaSupportPlugin.instance = this;
 	}
 
@@ -23,8 +23,7 @@ public class JavaSupportPlugin extends AbstractUIPlugin {
 	}
 
 	public boolean isGenerateJUnitTimeout() {
-		return getPreferenceStore().getBoolean(
-				GENERATE_JUNIT_TIMEOUT_PREFERENCE);
+		return getPreferenceStore().getBoolean(GENERATE_JUNIT_TIMEOUT_PREFERENCE);
 	}
 
 }

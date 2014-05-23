@@ -60,8 +60,7 @@ public class JavaLanguageSupport extends LanguageSupport {
 		javaProject.setOption(JavaCore.COMPILER_SOURCE, JAVA_VERSION);
 		javaProject.setOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JAVA_VERSION);
 
-		IFile testsFile = null;
-		testsFile = project.getFile(getProblemStatement().getSolutionClassName() + "Test.java");
+		IFile testsFile = project.getFile(getProblemStatement().getSolutionClassName() + "Test.java");
 		testsFile.create(new ByteArrayInputStream(getCodeGenerator().getTestsSource().getBytes()), false, null);
 
 		IFile sourceFile = project.getFile(getSolutionFileName());
@@ -79,9 +78,6 @@ public class JavaLanguageSupport extends LanguageSupport {
 		return sourceFile;
 	}
 
-	/**
-	 * @see net.fornwall.eclipsecoder.languages.LanguageSupport#getCodeEditorID()
-	 */
 	@Override
 	public String getCodeEditorID() {
 		return JavaUI.ID_CU_EDITOR;
@@ -92,17 +88,11 @@ public class JavaLanguageSupport extends LanguageSupport {
 		return JavaSupportPlugin.getInstance().getCodeTemplate();
 	}
 
-	/**
-	 * @see net.fornwall.eclipsecoder.languages.LanguageSupport#getLanguageName()
-	 */
 	@Override
 	public String getLanguageName() {
 		return LanguageSupport.LANGUAGE_NAME_JAVA;
 	}
 
-	/**
-	 * @see net.fornwall.eclipsecoder.languages.LanguageSupport#getPerspectiveID()
-	 */
 	@Override
 	public String getPerspectiveID() {
 		return JavaUI.ID_PERSPECTIVE;

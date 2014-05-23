@@ -15,19 +15,14 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	 */
 	@Override
 	public void initializeDefaultPreferences() {
-		IPreferenceStore store = JavaSupportPlugin.getInstance()
-				.getPreferenceStore();
+		IPreferenceStore store = JavaSupportPlugin.getInstance().getPreferenceStore();
 
-		store.setDefault(JavaSupportPlugin.GENERATE_JUNIT_TIMEOUT_PREFERENCE,
-				true);
+		store.setDefault(JavaSupportPlugin.GENERATE_JUNIT_TIMEOUT_PREFERENCE, true);
 
-		store.setDefault(JavaSupportPlugin.CODE_TEMPLATE_PREFERENCE,
-				"public class " + CodeGenerator.TAG_CLASSNAME + " {\n\n"
-						+ "\tpublic " + CodeGenerator.TAG_RETURNTYPE + " "
-						+ CodeGenerator.TAG_METHODNAME + "("
-						+ CodeGenerator.TAG_METHODPARAMS + ") {\n"
-						+ "\t\treturn " + CodeGenerator.TAG_DUMMYRETURN
-						+ ";\n" + "\t}\n\n" + "}\n");
+		store.setDefault(JavaSupportPlugin.CODE_TEMPLATE_PREFERENCE, "public class " + CodeGenerator.TAG_CLASSNAME
+				+ " {\n\n" + "\tpublic " + CodeGenerator.TAG_RETURNTYPE + " " + CodeGenerator.TAG_METHODNAME + "("
+				+ CodeGenerator.TAG_METHODPARAMS + ") {\n" + "\t\treturn " + CodeGenerator.TAG_DUMMYRETURN + ";\n"
+				+ "\t}\n\n" + "}\n");
 	}
 
 }
