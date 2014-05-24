@@ -1,5 +1,7 @@
 package net.fornwall.eclipsecoder.javasupport;
 
+import java.util.Collections;
+
 import net.fornwall.eclipsecoder.util.AbstractLauncher;
 
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -64,5 +66,10 @@ class JUnitLauncher extends AbstractLauncher {
 		config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, getClassName());
 		config.setAttribute(JUNIT_TEST_KIND_ATTRIBUTE, JUNIT4_TEST_KIND_ID);
 		config.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, "-ea");
+		// Setting preferred_launchers avoids being prompted for specific launcher, which may happen for JUnit when
+		// Android Tools are installed (choice between "Eclipse JUnit Launcher" and "Android JUnit Test Launcher"):
+		config.setAttribute("org.eclipse.debug.core.preferred_launchers",
+				Collections.singletonMap("[run]", "org.eclipse.jdt.junit.launchconfig"));
 	}
+
 }
