@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -22,12 +23,25 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.ui.JavaUI;
+import org.osgi.framework.Version;
 
 /**
  * For more information on the JDT java model, see:
  * http://www.eclipsecon.org/2005/presentations/EclipseCON2005_Tutorial29.pdf
  */
 public class JavaLanguageSupport extends LanguageSupport {
+
+	/** TopCoder supports java 1.8. */
+	private static String eclipseAndJvmSupportedJavaVersion() {
+		String[] jvmVersionParts = System.getProperty("java.version").split("\\.");
+		boolean jvmSupports18 = jvmVersionParts.length > 1 && Integer.parseInt(jvmVersionParts[1]) >= 8;
+
+		Version jdtVersion = Platform.getBundle("org.eclipse.jdt.core").getBundleContext().getBundle().getVersion();
+		boolean jdtSupports18 = jdtVersion.getMajor() >= 4
+				|| (jdtVersion.getMajor() == 3 && jdtVersion.getMinor() >= 10);
+
+		return jvmSupports18 && jdtSupports18 ? "1.8" : "1.7";
+	}
 
 	public static final String DEFAULT_CODE_TEMPLATE = "public class " + CodeGenerator.TAG_CLASSNAME + " {\n\n"
 			+ "    public " + CodeGenerator.TAG_RETURNTYPE + " " + CodeGenerator.TAG_METHODNAME + "("
@@ -48,14 +62,14 @@ public class JavaLanguageSupport extends LanguageSupport {
 		newProjectDescription.setNatureIds(new String[] { JavaCore.NATURE_ID });
 		project.setDescription(newProjectDescription, null);
 
+		final String JAVA_VERSION = eclipseAndJvmSupportedJavaVersion();
+
 		IClasspathEntry sourceEntry = JavaCore.newSourceEntry(javaProject.getPath());
 		IClasspathEntry conEntry = JavaCore.newContainerEntry(new Path(JavaRuntime.JRE_CONTAINER
-				+ "/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"));
+				+ "/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-" + JAVA_VERSION));
 		IClasspathEntry junitEntry = JavaCore.newContainerEntry(new Path("org.eclipse.jdt.junit.JUNIT_CONTAINER/4"));
 		javaProject.setRawClasspath(new IClasspathEntry[] { sourceEntry, conEntry, junitEntry }, null);
 
-		// current topcoder setup uses java 1.7:
-		final String JAVA_VERSION = JavaCore.VERSION_1_7;
 		javaProject.setOption(JavaCore.COMPILER_COMPLIANCE, JAVA_VERSION);
 		javaProject.setOption(JavaCore.COMPILER_SOURCE, JAVA_VERSION);
 		javaProject.setOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JAVA_VERSION);
