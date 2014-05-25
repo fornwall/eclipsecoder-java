@@ -14,7 +14,6 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -36,7 +35,7 @@ public class JavaLanguageSupport extends LanguageSupport {
 		String[] jvmVersionParts = System.getProperty("java.version").split("\\.");
 		boolean jvmSupports18 = jvmVersionParts.length > 1 && Integer.parseInt(jvmVersionParts[1]) >= 8;
 
-		Version jdtVersion = Platform.getBundle("org.eclipse.jdt.core").getBundleContext().getBundle().getVersion();
+		Version jdtVersion = JavaCore.getJavaCore().getBundle().getVersion();
 		boolean jdtSupports18 = jdtVersion.getMajor() >= 4
 				|| (jdtVersion.getMajor() == 3 && jdtVersion.getMinor() >= 10);
 
