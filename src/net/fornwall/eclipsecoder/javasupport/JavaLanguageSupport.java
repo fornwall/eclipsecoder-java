@@ -20,6 +20,9 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.IVMInstall2;
+import org.eclipse.jdt.launching.IVMInstallType;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.ui.JavaUI;
 import org.osgi.framework.Version;
@@ -32,14 +35,27 @@ public class JavaLanguageSupport extends LanguageSupport {
 
 	/** TopCoder supports java 1.8. */
 	private static String eclipseAndJvmSupportedJavaVersion() {
-		String[] jvmVersionParts = System.getProperty("java.version").split("\\.");
-		boolean jvmSupports18 = jvmVersionParts.length > 1 && Integer.parseInt(jvmVersionParts[1]) >= 8;
+		boolean jvm18Installed = false;
+		for(IVMInstallType vm : JavaRuntime.getVMInstallTypes()) {
+			for(IVMInstall inst : vm.getVMInstalls()) {
+				if(inst instanceof IVMInstall2) {
+					String jvmVersion = ((IVMInstall2) inst).getJavaVersion();
+					String[] jvmVersionParts  = jvmVersion.split("\\.");
+					int major = Integer.parseInt(jvmVersionParts[0]);
+					int minor = Integer.parseInt(jvmVersionParts[1]);
+					if((major == 1 && minor >= 8) || major >=2) {
+						jvm18Installed = true;
+					}
+				}
+			}
+		}
 
 		Version jdtVersion = JavaCore.getJavaCore().getBundle().getVersion();
 		boolean jdtSupports18 = jdtVersion.getMajor() >= 4
-				|| (jdtVersion.getMajor() == 3 && jdtVersion.getMinor() >= 10);
+				|| (jdtVersion.getMajor() == 3 && jdtVersion.getMinor() >= 10)
+				|| (jdtVersion.getMajor() == 3 && jdtVersion.getMinor() >= 9 && jdtVersion.getMicro() >= 50);
 
-		return jvmSupports18 && jdtSupports18 ? "1.8" : "1.7";
+		return jvm18Installed && jdtSupports18 ? "1.8" : "1.7";
 	}
 
 	public static final String DEFAULT_CODE_TEMPLATE = "public class " + CodeGenerator.TAG_CLASSNAME + " {\n\n"
