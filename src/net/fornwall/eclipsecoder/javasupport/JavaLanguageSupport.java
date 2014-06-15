@@ -36,14 +36,14 @@ public class JavaLanguageSupport extends LanguageSupport {
 	/** TopCoder supports java 1.8. */
 	private static String eclipseAndJvmSupportedJavaVersion() {
 		boolean jvm18Installed = false;
-		for(IVMInstallType vm : JavaRuntime.getVMInstallTypes()) {
-			for(IVMInstall inst : vm.getVMInstalls()) {
-				if(inst instanceof IVMInstall2) {
+		for (IVMInstallType vm : JavaRuntime.getVMInstallTypes()) {
+			for (IVMInstall inst : vm.getVMInstalls()) {
+				if (inst instanceof IVMInstall2) {
 					String jvmVersion = ((IVMInstall2) inst).getJavaVersion();
-					String[] jvmVersionParts  = jvmVersion.split("\\.");
+					String[] jvmVersionParts = jvmVersion.split("\\.");
 					int major = Integer.parseInt(jvmVersionParts[0]);
 					int minor = Integer.parseInt(jvmVersionParts[1]);
-					if((major == 1 && minor >= 8) || major >=2) {
+					if ((major == 1 && minor >= 8) || major >= 2) {
 						jvm18Installed = true;
 					}
 				}
