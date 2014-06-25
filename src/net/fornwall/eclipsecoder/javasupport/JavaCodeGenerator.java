@@ -164,5 +164,14 @@ public class JavaCodeGenerator extends CodeGenerator {
 			return type.getSimpleName();
 		}
 	}
+	
+	@Override
+	public String getModuloString() {
+		String modulo = problemStatement.getModulo();
+		if(modulo != null && modulo.length() > 0) {
+			return "public static final int MOD = " + modulo;
+		}
+		return super.getModuloString();
+	}
 
 }
